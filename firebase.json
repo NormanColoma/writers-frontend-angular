@@ -1,0 +1,33 @@
+{
+  "database": {
+    "rules": "database.rules.json"
+  },
+  "hosting": {
+    "public": "",
+    "ignore": [
+      "firebase.json",
+      ".firebaserc",
+      ".vscode",
+      ".git",
+      ".gitignore",
+      ".editorconfig",
+      "src/**/.*",
+      "database.rules.json",
+      "package.json",
+      "package-lock.json",
+      "README.md",
+      "tsconfig.json",
+      "webpack.config.js",
+      "yarn.lock",
+      "**/node_modules/**",
+      "protractor.conf.js",
+      "karma.conf.js"
+    ],
+    "rewrites": [
+      {
+        "source": "**",
+        "destination": "/index.html"
+      }
+    ]
+  }
+}

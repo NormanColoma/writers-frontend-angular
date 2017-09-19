@@ -1,0 +1,141 @@
+import { createSelector, createFeatureSelector } from '@ngrx/store';
+import * as author from '../actions/authors';
+
+import { Author } from '../../dashboard/shared/models/author';
+
+export interface State {
+    ids: string[];
+    entities: Author [],
+    loading: boolean,
+    selectedAuthorId: string | null
+};
+
+export const initialState: State = {
+     ids: [],
+     entities: [],
+     loading: false,
+     selectedAuthorId: null
+}
+
+export function authorsReducer(state = initialState, action: author.Actions): State {
+    switch(action.type) {
+        case author.GET: {
+            return Object.assign({}, state, { loading: true });
+        }
+        
+        case author.GET_COMPLETE: {
+            const authors = action.payload;
+            const newAuthors = authors.filter(author => !state.ids.includes(author.id));
+            debugger;
+            const newIds = newAuthors.map(author => author.id);
+            
+            debugger;
+            return Object.assign({}, state, {
+                entities: [...state.entities, ...newAuthors],
+                ids: [...state.ids, ...newIds],
+                loading: false
+            });
+        }
+        
+        case author.FIND_ONE: {
+            return Object.assign({}, state, { loading: true, selectedAuthorId: action.payload });
+        }
+
+        case author.FIND_ONE_COMPLETE: {
+            const author = action.payload;
+
+            if (!author.name || state.ids.indexOf(author.id) > -1) {
+                return state;
+            }
+
+            const index = Number(author.id) - 1;
+            return {
+                ids: [...state.ids, author.id],
+                entities: Object.assign([], state.entities, {
+                    [index]: author,
+                }),
+                loading: false,
+                selectedAuthorId: state.selectedAuthorId,
+            };
+        }
+
+        case author.ADD_SUCCESS: {
+            const newAuthor = action.payload;
+
+            if(state.ids.indexOf(newAuthor.id) >= 0) {
+                return state;
+            }
+
+            return Object.assign({}, state, { 
+                entities: [...state.entities, newAuthor], ids: [ ...state.ids, newAuthor.id] 
+            });
+        }
+
+        case author.UPDATE_SUCCESS: {
+            const updatedAuthor = action.payload;
+            const index = Number(updatedAuthor.id) - 1;
+
+            return {
+                ids: state.ids,
+                entities: Object.assign([], state.entities, {
+                    [index]: updatedAuthor
+                }),
+                loading: state.loading,
+                selectedAuthorId: state.selectedAuthorId
+            };
+        }
+
+        case author.REMOVE_SUCCESS: {
+            const authorId = action.payload;
+
+            const newEntities = state.entities.filter(author => author.id !== authorId); 
+            const newIds = state.ids.filter(id => id !== authorId);
+
+            return Object.assign({}, state, {
+                entities: newEntities,
+                ids: newIds
+            });
+        }
+
+        default: {
+            return state;
+        }
+    }
+}
+
+export const getAuthorsState = createFeatureSelector<State>('authors');
+
+export const getAuthors = createSelector(
+    getAuthorsState,
+    (state: State) => state.entities
+  );
+
+export const getLoading = createSelector(
+    getAuthorsState,
+    (state: State) => { 
+        return state.loading
+    }
+)
+
+export const getSelectedAuthorId = createSelector(
+    getAuthorsState,
+    (state: State) => state.selectedAuthorId
+)
+
+export const getSelectedAuthor = createSelector(
+    getAuthors,
+    getSelectedAuthorId,
+    (authors, id) => {
+        if(!id) {
+            return {
+                id: '',
+                name: '',
+                about: '',
+                books: 0,
+                created_at: new Date()
+            };
+        }
+        const index = Number(id) - 1;
+        return authors[index];
+    }
+);
