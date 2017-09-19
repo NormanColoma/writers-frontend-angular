@@ -1,5 +1,5 @@
-const LOCALHOST = 'localhost:8080';
+const LOCALHOST = 'http://localhost:8080/';
 
 export const API = {
-    WRITERS: `http://localhost:8080/writers`
+    WRITERS: `${LOCALHOST}writers`,
 }

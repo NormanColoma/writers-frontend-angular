@@ -43,12 +43,14 @@ export function authorsReducer(state = initialState, action: author.Actions): St
 
         case author.FIND_ONE_COMPLETE: {
             const author = action.payload;
-
+            
             if (!author.name || state.ids.indexOf(author.id) > -1) {
                 return state;
             }
 
-            const index = Number(author.id) - 1;
+            const currentIndex = state.entities
+                .findIndex(entity => entity.id === author.id);
+            const index = currentIndex >= 0 ? currentIndex : 0;
             return {
                 ids: [...state.ids, author.id],
                 entities: Object.assign([], state.entities, {
@@ -135,7 +137,6 @@ export const getSelectedAuthor = createSelector(
                 created_at: new Date()
             };
         }
-        const index = Number(id) - 1;
-        return authors[index];
+        return authors.find(author => author.id === id);
     }
 );

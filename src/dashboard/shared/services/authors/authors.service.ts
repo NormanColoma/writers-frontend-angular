@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Http } from '@angular/http';
+import { Http, Response } from '@angular/http';
 
 import { Observable } from 'rxjs';
 import 'rxjs/add/operator/map';
@@ -27,10 +27,7 @@ export class AuthorsService {
 
     getAuthors():Observable<Author []> {
         return this.http.get(API.WRITERS)
-            .map((response: any) => { 
-                debugger;
-                return response.json()
-            });
+            .map((response: Response) => response.json());
     }
 
     getAuthor(id: string) : Observable<Author | any> {
@@ -38,8 +35,8 @@ export class AuthorsService {
             return Observable.of({});
         }
 
-        const author = AUTHORS.find(author => author.id === id);
-        return Observable.of(author).delay(500);
+        return this.http.get(`${API.WRITERS}/${id}`)
+            .map((response: Response) => response.json());
     }
 
     updateAuthor(id: string, author: Author): Observable<Author> {
