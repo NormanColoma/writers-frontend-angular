@@ -75,7 +75,8 @@ export function authorsReducer(state = initialState, action: author.Actions): St
 
         case author.UPDATE_SUCCESS: {
             const updatedAuthor = action.payload;
-            const index = Number(updatedAuthor.id) - 1;
+            const index = state.entities
+                .findIndex(entity => entity.id === updatedAuthor.id);
 
             return {
                 ids: state.ids,

@@ -40,26 +40,17 @@ export class AuthorsService {
     }
 
     updateAuthor(id: string, author: Author): Observable<Author> {
-        let authorToBeUpdated = AUTHORS.find(author => author.id === id);
-        authorToBeUpdated = Object.assign({}, authorToBeUpdated, author);
-
-        return Observable.of(authorToBeUpdated);
+        return this.http.put(`${API.WRITERS}/${id}`, author)
+            .map((response: Response) => response.json());
     }
 
     addAuthor(author: Author): Observable<Author> {
-        const id = String(AUTHORS.length + 1);
-
-        author.id = id;
-        author.created_at = new Date();
-        AUTHORS.push(author);
-
-        return Observable.of(author);
+        return this.http.post(API.WRITERS, author)
+            .map((response: Response) => response.json());
     }
 
     removeAuthor(id: string) : Observable<String> {
-        
-        AUTHORS.splice(Number(id) -1);
-
-        return Observable.of(id);
+        return this.http.delete(`${API.WRITERS}/${id}`)
+        .map(() => id);
     }
 }
