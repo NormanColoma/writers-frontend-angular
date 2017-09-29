@@ -8,7 +8,8 @@
     "build:dev": "cross-env NODE_ENV=development webpack-dev-server --host 0.0.0.0 --inline --hot",
     "build:production": "npm run clean && npm run build",
     "clean": "rimraf build",
-    "start": "npm run build:dev"
+    "start": "npm run build:dev",
+    "run:production": "lite-server"
   },
   "devDependencies": {
     "@angular/compiler": "4.3.0",
@@ -31,6 +32,7 @@
     "karma-sourcemap-loader": "0.3.7",
     "karma-spec-reporter": "0.0.31",
     "karma-webpack": "2.0.3",
+    "lite-server": "^2.3.0",
     "node-sass": "4.5.3",
     "raw-loader": "0.5.1",
     "rimraf": "2.6.1",

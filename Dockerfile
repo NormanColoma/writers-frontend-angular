@@ -1,9 +1,11 @@
 FROM node:8
 RUN mkdir -p /usr/src/app
 WORKDIR /usr/src/app
-COPY package.json /usr/src/app/
-COPY yarn.lock /usr/src/app/
-RUN yarn install
-COPY . /usr/src/app
+COPY . /usr/src/app/
+RUN yarn install && yarn build:production \
+    && rm -rf src/ && rm yarn.lock && rm tsconfig.json && rm webpack.config.js \
+    && rm -rf node_modules/
 EXPOSE 3000
-CMD ["yarn", "start"]
+RUN yarn add lite-server --dev
+CMD ["yarn", "run:production"]
+ 
