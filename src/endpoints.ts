@@ -1,5 +1,5 @@
-const LOCALHOST = 'http://localhost:8080/';
+const HOST = `http://${process.env.HOST}:8080`;
 
 export const API = {
-    WRITERS: `${LOCALHOST}writers`
+    WRITERS: `${HOST}/writers`
 }
