@@ -1,10 +1,10 @@
 {
-  "name": "ua-pro-app-seed",
+  "name": "writers-front-app",
   "version": "0.0.0",
-  "author": "Ultimate Angular",
+  "author": "Norman Coloma",
   "license": "MIT",
   "scripts": {
-    "build": "cross-env NODE_ENV=production webpack -p",
+    "build": "cross-env NODE_ENV=production HOST=192.168.99.100 webpack -p",
     "build:dev": "cross-env NODE_ENV=development HOST=localhost webpack-dev-server --host 0.0.0.0 --inline --hot",
     "build:production": "npm run clean && npm run build",
     "clean": "rimraf build",
