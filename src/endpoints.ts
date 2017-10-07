@@ -1,4 +1,4 @@
-const HOST = `http://${process.env.HOST}:8080`;
+const HOST = `http://${process.env.HOST}`;
 
 export const API = {
     WRITERS: `${HOST}/writers`
