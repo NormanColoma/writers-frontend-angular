@@ -20,6 +20,7 @@ export const initialState: State = {
 export function authorsReducer(state = initialState, action: author.Actions): State {
     switch(action.type) {
         case author.GET: {
+            debugger;
             return Object.assign({}, state, { loading: true });
         }
         

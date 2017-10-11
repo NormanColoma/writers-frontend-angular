@@ -7,13 +7,28 @@ import { Component } from '@angular/core';
         <nav class="navbar navbar-toggleable-md navbar-inverse bg-info">
             <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
             <div class="navbar-nav">
-                <a class="nav-item nav-link active" [routerLink]="['../authors']">Authors <span class="sr-only">(current)</span></a>
-                <a class="nav-item nav-link" href="#">Books</a>
-                <a class="nav-item nav-link" href="#">Best-seller</a>
+                <a 
+                    *ngFor="let item of nav"
+                    class="nav-item nav-link" 
+                    [routerLink]="[item.link]" 
+                    routerLinkActive="active">
+                        {{ item.name }}
+                </a>
             </div>
             </div>
         </nav>
     `
 })
 
-export class AppHeaderComponent {}
+export class AppHeaderComponent {
+    nav: any [] = [
+        {
+            link: '../authors',
+            name: 'Authors'
+        },
+        {
+            link: '../books',
+            name: 'Books'
+        }
+    ]
+}

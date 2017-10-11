@@ -5,7 +5,7 @@
   "license": "MIT",
   "scripts": {
     "build": "cross-env NODE_ENV=production HOST=api.authors.com webpack -p",
-    "build:dev": "cross-env NODE_ENV=development HOST=localhost webpack-dev-server --host 0.0.0.0 --inline --hot",
+    "build:dev": "cross-env NODE_ENV=development HOST=localhost:8082 webpack-dev-server --host 0.0.0.0 --inline --hot",
     "build:production": "npm run clean && npm run build",
     "clean": "rimraf build",
     "start": "npm run build:dev",
