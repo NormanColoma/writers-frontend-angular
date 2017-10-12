@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Http } from '@angular/http';
+import { Http, Response } from '@angular/http';
 
 //Models
 import { Book } from '../../models/book';
@@ -7,6 +7,9 @@ import { Book } from '../../models/book';
 //Rxjs
 import { Observable } from 'rxjs';
 import 'rxjs/add/observable/of'; 
+import 'rxjs/add/operator/map'; 
+
+import { API } from '../../../../endpoints';
 
 @Injectable()
 export class BookService {
@@ -23,6 +26,10 @@ export class BookService {
     }
 
     getBooks(): Observable<Book[]> {
-        return Observable.of(this.books);
+        return this.http.get(API.BOOKS)
+            .map((response: Response) => {
+                debugger
+                return response.json()
+            });
     }
 }
