@@ -7,6 +7,7 @@ import { BooksComponent } from  './containers/books/books.component';
 
 //Components
 import { BookListComponent } from './components/book-list/book-list.component';
+import { BookResumeComponent } from './components/book-resume/book-resume.component';
 
 const ROUTES: Routes = [
     { path: '', component:  BooksComponent }
@@ -19,7 +20,8 @@ const ROUTES: Routes = [
     ],
     declarations: [ 
         BooksComponent,
-        BookListComponent
+        BookListComponent,
+        BookResumeComponent
     ]
 })
 

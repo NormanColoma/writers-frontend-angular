@@ -4,8 +4,7 @@ import { Component } from '@angular/core';
     selector: 'books',
     template: `
         <div>
-            Books
-            <book-list></book-list>
+            <book-list class="mt-5"></book-list>
         </div>
     `
 })
