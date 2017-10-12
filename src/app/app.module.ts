@@ -26,8 +26,8 @@ export const ROUTES: Routes = [
     BrowserModule,
     RouterModule.forRoot(ROUTES),
     DashboardModule,
-    StoreModule.forRoot(authorsReducer),
-    EffectsModule.forRoot([AuthorEffects])
+    StoreModule.forRoot([]),
+    EffectsModule.forRoot([])
   ],
   declarations: [
     AppComponent,

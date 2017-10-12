@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { HttpModule } from '@angular/http';
 
 import { AuthorsService } from './services/authors/authors.service';
+import { BookService } from './services/books/books.service';
 
 @NgModule({
     imports: [
@@ -17,7 +18,8 @@ export class SharedModule {
         return {
             ngModule: SharedModule,
             providers: [
-                AuthorsService
+                AuthorsService,
+                BookService
             ]
         }
     }

@@ -9,6 +9,12 @@ import { BooksComponent } from  './containers/books/books.component';
 import { BookListComponent } from './components/book-list/book-list.component';
 import { BookResumeComponent } from './components/book-resume/book-resume.component';
 
+//Effects
+import { StoreModule } from '@ngrx/store';
+import { EffectsModule } from '@ngrx/effects';
+import { BookEffects } from "../../state-store/effects/books";
+import { booksReducer } from "../../state-store/reducers/books";
+
 const ROUTES: Routes = [
     { path: '', component:  BooksComponent }
 ]
@@ -16,7 +22,9 @@ const ROUTES: Routes = [
 @NgModule({
     imports: [
         CommonModule,
-        RouterModule.forChild(ROUTES)
+        RouterModule.forChild(ROUTES),
+        StoreModule.forFeature('books', booksReducer),
+        EffectsModule.forFeature([BookEffects])
     ],
     declarations: [ 
         BooksComponent,

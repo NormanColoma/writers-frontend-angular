@@ -1,10 +1,20 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
+
+//Models
+import { Book } from '../../../shared/models/book';
 
 @Component({
     selector: 'book-list',
     template: `
-      <book-resume></book-resume>
+      <book-resume 
+        *ngFor="let book of books"
+        [book]="book">
+      </book-resume>
     `
 })
 
-export class BookListComponent {}
+export class BookListComponent {
+
+  @Input()
+  books: Book[];
+}
