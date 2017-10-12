@@ -16,6 +16,7 @@ import * as bookReducer from "../../../../state-store/reducers/books";
         <div>
             <book-list 
                 [books]="books$ | async"
+                [loading]="loading$ | async"
                 class="mt-5">
             </book-list>
         </div>
@@ -24,12 +25,14 @@ import * as bookReducer from "../../../../state-store/reducers/books";
 
 export class BooksComponent {
     books$: Observable<Book[]>;
+    loading$: Observable<boolean>;
 
     constructor(private store: Store<bookReducer.BookState>, private bookService: BookService){
-        this.store.dispatch(new book.GetAction);
+        this.store.dispatch(new book.GetAction());
     }
 
     ngOnInit() {
         this.books$ = this.store.select(bookReducer.getBooks);
+        this.loading$ = this.store.select(bookReducer.getLoading);
     }
 }

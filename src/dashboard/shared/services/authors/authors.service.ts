@@ -8,22 +8,10 @@ import 'rxjs/add/observable/of';
 import { Author } from '../../models/author';
 import { API } from '../../../../endpoints';
 
-const AUTHORS : Author [] = [
-    { 
-        id: '1' , 
-        name: 'R.R. Martin', 
-        about: 'This is the most crazy writer I have ever seen in my life', 
-        books: 5, 
-        created_at: new Date(2017, 7, 29)
-    }
-];
-
 @Injectable()
 export class AuthorsService {
 
-    constructor(private http: Http) {
-
-    }
+    constructor(private http: Http) {}
 
     getAuthors():Observable<Author []> {
         return this.http.get(API.WRITERS)

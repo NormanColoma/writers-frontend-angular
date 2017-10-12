@@ -20,17 +20,16 @@ export const initialState: State = {
 export function authorsReducer(state = initialState, action: author.Actions): State {
     switch(action.type) {
         case author.GET: {
-            debugger;
             return Object.assign({}, state, { loading: true });
         }
         
         case author.GET_COMPLETE: {
             const authors = action.payload;
             const newAuthors = authors.filter(author => !state.ids.includes(author.id));
-            debugger;
+            
             const newIds = newAuthors.map(author => author.id);
             
-            debugger;
+            
             return Object.assign({}, state, {
                 entities: [...state.entities, ...newAuthors],
                 ids: [...state.ids, ...newIds],
@@ -116,9 +115,7 @@ export const getAuthors = createSelector(
 
 export const getLoading = createSelector(
     getAuthorsState,
-    (state: State) => { 
-        return state.loading
-    }
+    (state: State) =>  state.loading
 )
 
 export const getSelectedAuthorId = createSelector(

@@ -22,7 +22,7 @@ import { authorsReducer } from "../../state-store/reducers/authors";
 import { AuthorsGuard } from '../shared/guards/authors/authors.guard';
 
 const ROUTES: Routes = [
-    { path: '', component:  AuthorsComponent },
+    { path: '', component:  AuthorsComponent},
     { path: 'new', component: AuthorComponent },
     { path: ':id', component: AuthorComponent },
 ]
