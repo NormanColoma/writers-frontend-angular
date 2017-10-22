@@ -15,7 +15,8 @@ const plugins = [
   new webpack.DefinePlugin({
     'process.env': {
       'NODE_ENV': JSON.stringify(process.env.NODE_ENV),
-      'HOST': JSON.stringify(process.env.HOST)
+      'AUTHORS_HOST': JSON.stringify(process.env.AUTHORS_HOST),
+      'BOOKS_HOST': JSON.stringify(process.env.BOOKS_HOST)
     }
   }),
   new webpack.optimize.CommonsChunkPlugin({

@@ -1,6 +1,7 @@
-const HOST = `http://${process.env.HOST}`;
+const AUTHORS_HOST = `http://${process.env.AUTHORS_HOST}`;
+const BOOKS_HOST = `http://${process.env.BOOKS_HOST}`;
 
 export const API = {
-    WRITERS: `${HOST}/writers`,
-    BOOKS: `http://localhost:5000/books`
+    WRITERS: `${AUTHORS_HOST}/writers`,
+    BOOKS: `${BOOKS_HOST}/books`
 }

@@ -7,7 +7,7 @@ import { Book } from '../../../shared/models/book';
     selector: 'book-list',
     template: `
       <div *ngIf="loaded; else loading">
-        <h1 class="display-4 mb-4">Books</h1>
+        <h1 class="display-4 mb-4">{{ author ? 'Books about' : 'Books'}}</h1>
         <book-resume 
           *ngFor="let book of books"
           [book]="book">
