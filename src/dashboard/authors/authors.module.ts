@@ -6,6 +6,7 @@ import { RouterModule, Routes } from '@angular/router';
 //Containers
 import { AuthorsComponent } from  './containers/authors/authors.component';
 import { AuthorComponent } from  './containers/author/author.component';
+import { AuthorBooksComponent } from  './containers/author-books/author-books.component';
 
 //Components
 import { AuthorResumeComponent } from "./components/author-resume/author-resume.component";
@@ -25,6 +26,7 @@ const ROUTES: Routes = [
     { path: '', component:  AuthorsComponent},
     { path: 'new', component: AuthorComponent },
     { path: ':id', component: AuthorComponent },
+    { path: ':id/books', component: AuthorBooksComponent }
 ]
 
 @NgModule({
@@ -40,7 +42,8 @@ const ROUTES: Routes = [
         AuthorResumeComponent,
         AuthorListComponent,
         AuthorComponent,
-        AuthorFormComponent
+        AuthorFormComponent,
+        AuthorBooksComponent
     ],
     providers: [
         AuthorsGuard
