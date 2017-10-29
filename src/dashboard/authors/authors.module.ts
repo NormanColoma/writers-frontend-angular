@@ -12,6 +12,7 @@ import { AuthorBooksComponent } from  './containers/author-books/author-books.co
 import { AuthorResumeComponent } from "./components/author-resume/author-resume.component";
 import { AuthorListComponent } from "./components/author-list/author-list.component";
 import { AuthorFormComponent } from "./components/author-form/author-form.component";
+import { AuthorBookListComponent } from "./components/author-book-list/author-book-list.component";
 
 //Store and effects
 import { EffectsModule } from "@ngrx/effects";
@@ -43,7 +44,8 @@ const ROUTES: Routes = [
         AuthorListComponent,
         AuthorComponent,
         AuthorFormComponent,
-        AuthorBooksComponent
+        AuthorBooksComponent,
+        AuthorBookListComponent
     ],
     providers: [
         AuthorsGuard

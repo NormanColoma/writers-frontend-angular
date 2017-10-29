@@ -8,8 +8,7 @@ import { Store } from "@ngrx/store";
 //Observables and operators
 import { Observable } from 'rxjs';
 
-//Services and Models
-import { AuthorsService } from "../../../shared/services/authors/authors.service";
+//Models
 import { Author } from '../../../shared/models/author';
 
 @Component({
@@ -28,7 +27,7 @@ export class AuthorsComponent implements OnInit {
     authors$: Observable<Author[]>;
     loading$: Observable<boolean>;
 
-    constructor(private store: Store<authorReducer.State>, private authorsService: AuthorsService){
+    constructor(private store: Store<authorReducer.State>){
         this.store.dispatch(new author.GetAction);
     }
     

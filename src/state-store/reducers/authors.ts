@@ -37,6 +37,10 @@ export function authorsReducer(state = initialState, action: author.Actions): St
             });
         }
         
+        case author.SELECT_ONE: {
+            return Object.assign({}, state, { loading: true, selectedAuthorId: action.payload });
+        }
+        
         case author.FIND_ONE: {
             return Object.assign({}, state, { loading: true, selectedAuthorId: action.payload });
         }

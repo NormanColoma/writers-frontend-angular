@@ -6,6 +6,7 @@ export const GET = '[Author] Get';
 export const GET_COMPLETE = '[Author] Get Complete';
 export const ADD = '[Author] Add';
 export const ADD_SUCCESS = '[Author] Add Success';
+export const SELECT_ONE = '[Author] Select One';
 export const FIND_ONE = '[Author] Find One';
 export const FIND_ONE_COMPLETE = '[Author] Find One Complete';
 export const UPDATE = '[Author] Update';
@@ -33,6 +34,12 @@ export class AddActionSuccess implements Action {
     readonly type = ADD_SUCCESS;
 
     constructor(public payload: Author) { }
+}
+
+export class SelectOne implements Action {
+    readonly type = SELECT_ONE;
+
+    constructor(public payload: string) { }
 }
 
 export class FindOne implements Action {
@@ -77,6 +84,7 @@ export type Actions
 | GetCompleteAction
 | AddAction
 | AddActionSuccess
+| SelectOne
 | FindOne
 | FindOneComplete
 | UpdateAction
