@@ -24,18 +24,23 @@ export function booksReducer(state = initialState, action: book.Actions): BookSt
             return Object.assign({}, state, { loading: true });
         }
 
-        case book.GET_COMPLETE: {
+        case book.GET_COMPLETE:
+        case book.GET_BY_AUTHOR_COMPLETE: {
             const books = action.payload;
             const newBooks = books.filter(book => !state.ids.includes(book.id));
             
             const newIds = newBooks.map(book => book.id);
 
-            
+            debugger;
             return Object.assign({}, state, {
                 entities: [...state.entities, ...newBooks],
                 ids: [...state.ids, ...newIds],
                 loading: false
             });
+        }
+
+        case book.GET_BY_AUTHOR: {
+            return Object.assign({}, state, { loading: true});
         }
 
         default:  {
@@ -56,3 +61,5 @@ export const getLoading = createSelector(
     getBookState,
     (state: BookState) => state.loading
 )
+
+export const getBooksExtenal = (state: BookState) => state.entities;

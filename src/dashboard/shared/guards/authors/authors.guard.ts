@@ -15,6 +15,7 @@ import { State, getAuthors } from "../../../../state-store/reducers/authors";
 
 import { Author } from '../../models/author';
 
+
 @Injectable()
 export class AuthorsGuard implements CanActivate {
   constructor(private store: Store<State>) {}

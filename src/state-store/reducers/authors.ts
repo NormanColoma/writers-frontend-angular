@@ -37,11 +37,8 @@ export function authorsReducer(state = initialState, action: author.Actions): St
             });
         }
         
+        case author.FIND_ONE:
         case author.SELECT_ONE: {
-            return Object.assign({}, state, { loading: true, selectedAuthorId: action.payload });
-        }
-        
-        case author.FIND_ONE: {
             return Object.assign({}, state, { loading: true, selectedAuthorId: action.payload });
         }
 
@@ -115,7 +112,7 @@ export const getAuthorsState = createFeatureSelector<State>('authors');
 export const getAuthors = createSelector(
     getAuthorsState,
     (state: State) => state.entities
-  );
+);
 
 export const getLoading = createSelector(
     getAuthorsState,

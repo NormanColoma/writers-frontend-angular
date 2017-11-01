@@ -6,10 +6,13 @@ import { Observable, Subscription } from 'rxjs';
 
 //Models
 import { Author } from '../../../shared/models/author';
+import { Book } from '../../../shared/models/book';
 
 // Store relatives
 import * as author from "../../../../state-store/actions/authors";
-import * as authorReducer from "../../../../state-store/reducers/authors";
+import * as book from "../../../../state-store/actions/books";
+import * as authorReducer from "../../../../state-store/reducers";
+
 import { Store } from "@ngrx/store";
 
 @Component({
@@ -17,7 +20,8 @@ import { Store } from "@ngrx/store";
     template: `<div>
         Authors books
         <author-book-list
-            [author]="author$ | async">
+            [author]="author$ | async"
+            [books]="books$ | async">
         </author-book-list>
     </div>`,
     styleUrls: []
@@ -25,10 +29,17 @@ import { Store } from "@ngrx/store";
 
 export class AuthorBooksComponent{
     author$: Observable<Author>;
+    books$: Observable<Book[]>;
     subscription: Subscription;
 
-    constructor(private store: Store<authorReducer.State>, private route: ActivatedRoute){
-        this.author$ = this.store.select(authorReducer.getSelectedAuthor);
-        this.subscription = this.route.params.subscribe(params => this.store.dispatch(new author.SelectOne(params.id)));
+    constructor(private store: Store<authorReducer.AuthorState>, private route: ActivatedRoute){
+        this.author$ = this.store.select(authorReducer.getAuthorEntitySelected);
+        this.books$ = this.store.select(authorReducer.getAuthorBooks);
+
+        this.subscription = this.route.params
+            .subscribe(params => { 
+                this.store.dispatch(new author.SelectOne(params.id));
+                this.store.dispatch(new book.GetByAuthorAction(params.id));
+            });
     }
 }

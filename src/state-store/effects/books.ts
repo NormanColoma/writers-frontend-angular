@@ -31,4 +31,17 @@ export class BookEffects {
         .switchMap(() => this.bookService.getBooks())
         .map((books: Book[]) => new book.GetCompleteAction(books));
 
+    @Effect()
+    getByAuthor$: Observable<book.GetByAuthorCompleteAction> = this.actions$
+        .ofType(book.GET_BY_AUTHOR)
+        .map((action: book.GetByAuthorAction) => action.payload)
+        .switchMap(id => 
+            this.bookService
+                .getByAuthor(id)
+                .map((books : Book[])  => { 
+                    debugger;
+                    return new book.GetByAuthorCompleteAction(books)
+                })
+        );
+
 }

@@ -20,4 +20,19 @@ export class BookService {
         return this.http.get(API.BOOKS)
             .map((response: Response) => response.json());
     }
+
+    getByAuthor(authorId: string): Observable<Book[]> {
+        /*const books : Book [] = [
+            {
+                id: '123',
+                title: 'tiotle',
+                description: 'desc',
+                coverUrl: 'cover',
+                author_id: 'sdf'
+            }
+        ];
+        return Observable.of(books);*/
+        return this.http.get(`${API.BOOKS}/author/${authorId}`)
+            .map((response: Response) => response.json());
+    }
 }

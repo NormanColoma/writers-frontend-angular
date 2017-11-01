@@ -17,8 +17,10 @@ import { AuthorBookListComponent } from "./components/author-book-list/author-bo
 //Store and effects
 import { EffectsModule } from "@ngrx/effects";
 import { AuthorEffects } from "../../state-store/effects/authors";
+import { BookEffects } from "../../state-store/effects/books";
 import { StoreModule } from "@ngrx/store";
 import { authorsReducer } from "../../state-store/reducers/authors";
+import { reducers } from "../../state-store/reducers";
 
 //Guards 
 import { AuthorsGuard } from '../shared/guards/authors/authors.guard';
@@ -35,8 +37,8 @@ const ROUTES: Routes = [
         CommonModule,
         ReactiveFormsModule,
         RouterModule.forChild(ROUTES),
-        StoreModule.forFeature('authors', authorsReducer),
-        EffectsModule.forFeature([AuthorEffects])
+        StoreModule.forFeature('authors', reducers),
+        EffectsModule.forFeature([AuthorEffects, BookEffects])
     ],
     declarations: [ 
         AuthorsComponent,
