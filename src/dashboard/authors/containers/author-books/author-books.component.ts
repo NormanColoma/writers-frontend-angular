@@ -18,7 +18,6 @@ import { Store } from "@ngrx/store";
 @Component({
     selector: 'author-books',
     template: `<div>
-        Authors books
         <author-book-list
             [author]="author$ | async"
             [books]="books$ | async">
