@@ -24,12 +24,13 @@ import { reducers } from "../../state-store/reducers";
 
 //Guards 
 import { AuthorsGuard } from '../shared/guards/authors/authors.guard';
+import { AuthorBooksGuard } from '../shared/guards/authors/author.guard';
 
 const ROUTES: Routes = [
     { path: '', component:  AuthorsComponent},
     { path: 'new', component: AuthorComponent },
     { path: ':id', component: AuthorComponent },
-    { path: ':id/books', component: AuthorBooksComponent }
+    { path: ':id/books', component: AuthorBooksComponent, canActivate: [AuthorBooksGuard] }
 ]
 
 @NgModule({
@@ -50,7 +51,8 @@ const ROUTES: Routes = [
         AuthorBookListComponent
     ],
     providers: [
-        AuthorsGuard
+        AuthorsGuard,
+        AuthorBooksGuard
     ]
 })
 

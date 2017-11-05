@@ -39,10 +39,7 @@ export class AuthorEffects {
         .mergeMap(id => 
             this.authorsService
                 .getAuthor(id)
-                .map((auth : Author)  => { 
-                    debugger;
-                    return new author.FindOneComplete(auth)
-                })
+                .map((auth : Author)  => new author.FindOneComplete(auth))
         );
     
     @Effect()

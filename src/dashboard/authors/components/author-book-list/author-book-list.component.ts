@@ -6,8 +6,8 @@ import { Book } from '../../../shared/models/book';
 @Component({
     selector: 'author-book-list',
     styleUrls: ['./author-book-list.component.scss'],
-    template: `
-    <div>
+    template: `<div>
+        <div *ngIf="books.length; else loading;">
         <h1 class="display-4 mb-4">Books of {{ author.name }}</h1>
         <div class="media" *ngFor="let book of books">
             <div class="media-body">
@@ -19,7 +19,11 @@ import { Book } from '../../../shared/models/book';
                 </div>
             </div>
             <img class="ml-3 mt-5 w-15 image-shadow" src="{{ book.coverUrl }}" alt="Generic placeholder image">
+        </div>
        </div>
+       <ng-template #loading>
+            {{ loadingMessage }}
+       </ng-template>
     </div>`
 })
 
@@ -29,4 +33,8 @@ export class AuthorBookListComponent {
 
     @Input()
     books: Book[];
+
+    get loadingMessage() {
+        return this.author ? `Loading books about ${this.author.name}...` : 'Loading books and author...';
+    }
 }

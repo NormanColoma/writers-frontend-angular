@@ -34,11 +34,5 @@ export class AuthorBooksComponent{
     constructor(private store: Store<authorReducer.AuthorState>, private route: ActivatedRoute){
         this.author$ = this.store.select(authorReducer.getAuthorEntitySelected);
         this.books$ = this.store.select(authorReducer.getAuthorBooks);
-
-        this.subscription = this.route.params
-            .subscribe(params => { 
-                this.store.dispatch(new author.SelectOne(params.id));
-                this.store.dispatch(new book.GetByAuthorAction(params.id));
-            });
     }
 }
