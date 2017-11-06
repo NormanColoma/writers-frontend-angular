@@ -50,3 +50,8 @@ export const getAuthorBooks = createSelector(
     getBooksEntities,
     (authorId, books) => books.filter(book => book.author_id === authorId)
 )
+
+export const getAuthorBooksLoading = createSelector(
+    getBookState,
+    fromBooks.getLoadingExternal
+)

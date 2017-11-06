@@ -19,7 +19,8 @@ export const initialState: BookState = {
 
 export function booksReducer(state = initialState, action: book.Actions): BookState {
     switch (action.type) {
-        case book.GET: {
+        case book.GET: 
+        case book.GET_BY_AUTHOR: {
             
             return Object.assign({}, state, { loading: true });
         }
@@ -38,11 +39,7 @@ export function booksReducer(state = initialState, action: book.Actions): BookSt
                 loading: false
             });
         }
-
-        case book.GET_BY_AUTHOR: {
-            return Object.assign({}, state, { loading: true});
-        }
-
+        
         default:  {
             return state;
         }
@@ -63,3 +60,4 @@ export const getLoading = createSelector(
 )
 
 export const getBooksExtenal = (state: BookState) => state.entities;
+export const getLoadingExternal = (state: BookState) => state.loading;

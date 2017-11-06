@@ -7,19 +7,24 @@ import { Book } from '../../../shared/models/book';
     selector: 'author-book-list',
     styleUrls: ['./author-book-list.component.scss'],
     template: `<div>
-        <div *ngIf="books.length; else loading;">
-        <h1 class="display-4 mb-4">Books of {{ author.name }}</h1>
-        <div class="media" *ngFor="let book of books">
-            <div class="media-body">
-                <h5 class="mt-0 mb-1">{{ book.title }}</h5>
-                <hr>
-                <div>{{ book.description }}</div>
-                <div class="w-30 mt-4 d-flex justify-content-between">
-                    <a href="#" class="btn btn-primary float-right">Want to read</a>
+        <div *ngIf="loaded; else loading;">
+            <div *ngIf="books.length; else empty;">
+                <h1 class="display-4 mb-4">Books of {{ author.name }}</h1>
+                <div class="media" *ngFor="let book of books">
+                    <div class="media-body">
+                        <h5 class="mt-0 mb-1">{{ book.title }}</h5>
+                        <hr>
+                        <div>{{ book.description }}</div>
+                        <div class="w-30 mt-4 d-flex justify-content-between">
+                            <a href="#" class="btn btn-primary float-right">Want to read</a>
+                        </div>
+                    </div>
+                    <img class="ml-3 mt-5 w-15 image-shadow" src="{{ book.coverUrl }}" alt="Generic placeholder image">
                 </div>
             </div>
-            <img class="ml-3 mt-5 w-15 image-shadow" src="{{ book.coverUrl }}" alt="Generic placeholder image">
-        </div>
+            <ng-template #empty>
+                There are no books about {{ author.name }} yet
+            </ng-template>
        </div>
        <ng-template #loading>
             {{ loadingMessage }}
@@ -28,11 +33,17 @@ import { Book } from '../../../shared/models/book';
 })
 
 export class AuthorBookListComponent {
+    loaded: boolean;
     @Input()
     author: Author;
 
     @Input()
     books: Book[];
+
+    @Input()
+    set loading(loading: boolean) {
+        this.loaded = !loading;
+    };
 
     get loadingMessage() {
         return this.author ? `Loading books about ${this.author.name}...` : 'Loading books and author...';
