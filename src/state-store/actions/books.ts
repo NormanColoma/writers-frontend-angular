@@ -6,6 +6,8 @@ export const GET = '[Book] Get';
 export const GET_COMPLETE = '[Book] Get Complete';
 export const GET_BY_AUTHOR = '[Book] Get By Author'
 export const GET_BY_AUTHOR_COMPLETE = '[Book] Get By Author Complete'
+export const ADD = '[Book] Add'
+export const ADD_SUCCESS = '[Book] Add Success'
 
 export class GetAction implements Action {
     readonly type = GET;
@@ -29,8 +31,21 @@ export class GetByAuthorCompleteAction implements Action {
     constructor(public payload: Book[]) { }
 }
 
+export class AddAction implements Action {
+    readonly type = ADD;
+
+    constructor(public payload: Book) {}
+}
+export class AddActionSuccess implements Action {
+    readonly type = ADD_SUCCESS;
+
+    constructor(public payload: Book) {}
+}
+
 
 export type Actions = GetAction 
     | GetCompleteAction
     | GetByAuthorAction
-    | GetByAuthorCompleteAction;
+    | GetByAuthorCompleteAction
+    | AddAction
+    | AddActionSuccess;

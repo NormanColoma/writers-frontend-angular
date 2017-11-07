@@ -22,17 +22,12 @@ export class BookService {
     }
 
     getByAuthor(authorId: string): Observable<Book[]> {
-        /*const books : Book [] = [
-            {
-                id: '123',
-                title: 'tiotle',
-                description: 'desc',
-                coverUrl: 'cover',
-                author_id: 'sdf'
-            }
-        ];
-        return Observable.of(books);*/
         return this.http.get(`${API.BOOKS}/author/${authorId}`)
+            .map((response: Response) => response.json());
+    }
+
+    addBook(book: Book) : Observable<Book> {
+        return this.http.post(`${API.BOOKS}/new`, book)
             .map((response: Response) => response.json());
     }
 }
