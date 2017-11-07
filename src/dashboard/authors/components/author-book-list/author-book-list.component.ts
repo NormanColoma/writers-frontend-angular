@@ -21,9 +21,21 @@ import { Book } from '../../../shared/models/book';
                     </div>
                     <img class="ml-3 mt-5 w-15 image-shadow" src="{{ book.coverUrl }}" alt="Generic placeholder image">
                 </div>
+                <div class="bd-callout bd-callout-info">
+                    <h4 class="text-dark">Didn't find what you were looking for??</h4>
+                    <p>
+                        So the book you've been looking for all this time about  
+                        <strong>{{ author.name }}</strong> isn't here. Don't wait more, let's 
+                        <a [routerLink]="addBookLink">add</a> it!!
+                    </p>
+                </div>
             </div>
             <ng-template #empty>
-                There are no books about {{ author.name }} yet
+                <div>
+                    <h4 class="text-dark">Ups we couldn't retrieve anything</h4>
+                    <p>There are no books about <strong>{{ author.name }}</strong> yet. Try <a href="/">adding</a> one!!</p>
+                </div>
+                
             </ng-template>
        </div>
        <ng-template #loading>
@@ -47,5 +59,9 @@ export class AuthorBookListComponent {
 
     get loadingMessage() {
         return this.author ? `Loading books about ${this.author.name}...` : 'Loading books and author...';
+    }
+
+    get addBookLink() {
+        return ['/books/new'];
     }
 }

@@ -29,6 +29,10 @@ export class AppHeaderComponent {
         {
             link: '../books',
             name: 'Books'
+        },
+        {
+            link: '../books/starred',
+            name: 'Starred'
         }
     ]
 }

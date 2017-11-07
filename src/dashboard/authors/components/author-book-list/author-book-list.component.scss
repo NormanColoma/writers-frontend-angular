@@ -14,3 +14,16 @@ hr {
     border-radius: 3px;
     border: none;
 }
+
+.bd-callout {
+    padding: 1.25rem;
+    margin-top: 5.25rem;
+    margin-bottom: 1.25rem;
+    border: 1px solid #eee;
+    border-left-width: .25rem;
+    border-radius: .25rem;
+}
+
+.bd-callout-info {
+    border-left-color: #5bc0de;
+}
