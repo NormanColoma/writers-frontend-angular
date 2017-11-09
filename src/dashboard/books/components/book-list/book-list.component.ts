@@ -1,10 +1,11 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, ChangeDetectionStrategy } from '@angular/core';
 
 //Models
 import { Book } from '../../../shared/models/book';
 
 @Component({
     selector: 'book-list',
+    changeDetection: ChangeDetectionStrategy.OnPush,
     template: `
       <div *ngIf="loaded; else loading">
         <h1 class="display-4 mb-4">{{ author ? 'Books about' : 'Books'}}</h1>

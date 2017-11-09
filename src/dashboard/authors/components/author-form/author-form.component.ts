@@ -110,9 +110,7 @@ export class AuthorFormComponent implements OnChanges {
       }
 
     ngOnChanges(changes: SimpleChanges) {
-        debugger;
         if(this.author && this.author.name) {
-            debugger;
             this.exists = true;
             const value = this.author;
             this.form.patchValue(value);

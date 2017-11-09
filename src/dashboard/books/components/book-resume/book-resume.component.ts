@@ -1,10 +1,11 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, ChangeDetectionStrategy } from '@angular/core';
 
 //Models
 import { Book } from '../../../shared/models/book';
 
 @Component({
     selector: 'book-resume',
+    changeDetection: ChangeDetectionStrategy.OnPush,
     template: `
         <div class="card card-container mb-3 d-flex flex-row">
             <div class="w-25">

@@ -31,8 +31,7 @@ export function booksReducer(state = initialState, action: book.Actions): BookSt
             const newBooks = books.filter(book => !state.ids.includes(book.id));
             
             const newIds = newBooks.map(book => book.id);
-
-            debugger;
+            
             return Object.assign({}, state, {
                 entities: [...state.entities, ...newBooks],
                 ids: [...state.ids, ...newIds],
@@ -47,11 +46,15 @@ export function booksReducer(state = initialState, action: book.Actions): BookSt
     }
 }
 
+//This is only will be used when attaching feature to 'books' within module
 export const getBookState = createFeatureSelector<BookState>('books');
 
 export const getBooks = createSelector(
     getBookState,
-    (state: BookState) => state.entities
+    (state: BookState) => { 
+        debugger;
+        return state.entities
+    }
 );
 
 export const getLoading = createSelector(

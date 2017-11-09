@@ -1,10 +1,11 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, ChangeDetectionStrategy } from '@angular/core';
 
 import { Author } from '../../../shared/models/author';
 import { Book } from '../../../shared/models/book';
 
 @Component({
     selector: 'author-book-list',
+    changeDetection: ChangeDetectionStrategy.OnPush,
     styleUrls: ['./author-book-list.component.scss'],
     template: `<div>
         <div *ngIf="loaded; else loading;">
