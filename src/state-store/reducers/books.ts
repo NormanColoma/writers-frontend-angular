@@ -38,6 +38,20 @@ export function booksReducer(state = initialState, action: book.Actions): BookSt
                 loading: false
             });
         }
+
+        case book.ADD_SUCCESS: {
+            const newBook = action.payload;
+
+            if(state.ids.indexOf(newBook.id) >= 0) {
+                return state;
+            }
+            
+            debugger;
+            return Object.assign({}, state, { 
+                entities: [...state.entities, newBook], ids: [ ...state.ids, newBook.id] 
+            });
+        }
+
         
         default:  {
             return state;

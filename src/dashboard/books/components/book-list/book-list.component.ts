@@ -13,12 +13,18 @@ import { Book } from '../../../shared/models/book';
           *ngFor="let book of books"
           [book]="book">
         </book-resume>
+        <a
+          class="btn btn-link"
+          [routerLink]="addBookLink">
+          Add new one
+        </a>
       </div>
 
       <ng-template #loading>
         Loading books...
       </ng-template>
-    `
+    `,
+    styleUrls: ['./book-list.component.scss']
 })
 
 export class BookListComponent {
@@ -33,4 +39,7 @@ export class BookListComponent {
       this.loaded = !loading;
   };
 
+  get addBookLink() {
+    return ['/books/new'];
+  }
 }
