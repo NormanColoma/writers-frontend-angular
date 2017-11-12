@@ -22,7 +22,8 @@ import { reducers } from "../../state-store/reducers";
 
 const ROUTES: Routes = [
     { path: '', component:  BooksComponent },
-    { path: 'new', component:  BookComponent }
+    { path: 'new', component:  BookComponent },
+    { path: ':id', component:  BookComponent }
 ]
 
 @NgModule({

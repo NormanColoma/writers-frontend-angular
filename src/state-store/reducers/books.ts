@@ -46,12 +46,34 @@ export function booksReducer(state = initialState, action: book.Actions): BookSt
                 return state;
             }
             
-            debugger;
             return Object.assign({}, state, { 
                 entities: [...state.entities, newBook], ids: [ ...state.ids, newBook.id] 
             });
         }
 
+        case book.SELECT_ONE:
+        case book.FIND_ONE: {
+            const selectedBookId = action.payload;
+
+            return Object.assign({}, state, { selectedBookId });
+        }
+
+        case book.FIND_ONE_COMPLETE: {
+            const book = action.payload;
+
+            const currentIndex = state.entities
+                .findIndex(entity => entity.id === book.id);
+            const index = currentIndex >= 0 ? currentIndex : 0;
+            
+            return {
+                ids: [...state.ids, book.id],
+                entities: Object.assign([], state.entities, {
+                    [index]: book,
+                }),
+                loading: false,
+                selectedBookId: state.selectedBookId,
+            };
+        }
         
         default:  {
             return state;
@@ -66,7 +88,6 @@ export const getBookState = createFeatureSelector<BookState>('books');
 export const getBooks = createSelector(
     getBookState,
     (state: BookState) => { 
-        debugger;
         return state.entities
     }
 );
@@ -78,3 +99,8 @@ export const getLoading = createSelector(
 
 export const getBooksExtenal = (state: BookState) => state.entities;
 export const getLoadingExternal = (state: BookState) => state.loading;
+export const getSelectedBookIdExternal = (state: BookState) => state.selectedBookId;
+export const getSelectedBookExternal = (state: BookState) => {
+    debugger;
+    return state.entities.find(entity => entity.id === state.selectedBookId);
+}

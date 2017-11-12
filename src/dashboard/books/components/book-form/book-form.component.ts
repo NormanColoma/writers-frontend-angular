@@ -1,4 +1,4 @@
-import { Component, ChangeDetectionStrategy, Input, EventEmitter, Output } from '@angular/core';
+import { Component, ChangeDetectionStrategy, Input, EventEmitter, Output, OnChanges, SimpleChanges } from '@angular/core';
 import { FormGroup, FormControl, FormBuilder, Validators } from '@angular/forms';
 
 import { Author } from '../../../shared/models/author';
@@ -8,7 +8,6 @@ import { Book } from '../../../shared/models/book';
     selector: 'book-form',
     changeDetection: ChangeDetectionStrategy.OnPush,
     template: `<div>
-        <h1 class="display-4 mb-4">Add Book</h1>
         <form [formGroup]="form" class="mt-4">
             <div class="row">
                 <div 
@@ -80,6 +79,15 @@ import { Book } from '../../../shared/models/book';
                 type="button" 
                 class="btn btn-primary"
                 [disabled]="form.invalid"
+                *ngIf="!book"
+                (click)="addBook()">
+                Add
+            </button>
+            <button 
+                type="button" 
+                class="btn btn-primary"
+                [disabled]="form.invalid"
+                *ngIf="book"
                 (click)="addBook()">
                 Add
             </button>
@@ -87,10 +95,13 @@ import { Book } from '../../../shared/models/book';
     </div>`
 })
 
-export class BookFormComponent {
+export class BookFormComponent implements OnChanges {
     
     @Input()
     authors: Author[];
+
+    @Input()
+    book: Book;
 
     @Output()
     add = new EventEmitter<Book>();
@@ -103,6 +114,13 @@ export class BookFormComponent {
     });
 
     constructor(private fb: FormBuilder){}
+
+    ngOnChanges(changes: SimpleChanges) {
+        if(this.book) {
+            const value = this.book;
+            this.form.patchValue(value);
+        }
+    }
 
     required(name: string) {
         return (

@@ -15,6 +15,7 @@ import { Book } from '../../../shared/models/book';
                 <h4 class="card-title">{{ book.title }}</h4>
                 <p class="card-text">{{ book.description }}</p>
                 <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
+                <a [routerLink]="book.id" class="btn btn-primary float-right ml-2">Edit info</a>
                 <a href="#" class="btn btn-primary float-right">View more</a>
             </div>
         </div>

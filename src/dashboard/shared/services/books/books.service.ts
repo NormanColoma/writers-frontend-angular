@@ -30,4 +30,9 @@ export class BookService {
         return this.http.post(`${API.BOOKS}/new`, book)
             .map((response: Response) => response.json());
     }
+
+    findBook(id: string): Observable<Book> {
+        return this.http.get(`${API.BOOKS}/${id}`)
+            .map((response: Response) => response.json());
+    }
 }

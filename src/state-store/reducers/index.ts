@@ -55,3 +55,8 @@ export const getAuthorBooksLoading = createSelector(
     getBookState,
     fromBooks.getLoadingExternal
 )
+
+export const getBookEntitySelected = createSelector(
+    getBookState,
+    fromBooks.getSelectedBookExternal
+)

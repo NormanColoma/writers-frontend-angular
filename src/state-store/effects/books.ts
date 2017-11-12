@@ -51,4 +51,13 @@ export class BookEffects {
             .map((bookAdded: Book) => new book.AddActionSuccess(bookAdded))
         );
 
+    @Effect()
+    findOne$: Observable<book.FindOneCompleteAction> = this.actions$
+        .ofType(book.FIND_ONE)
+        .map((action: book.FindOneAction) => action.payload)
+        .switchMap(id => 
+            this.bookService
+                .findBook(id)
+                .map((bookRetreived: Book) => new book.FindOneCompleteAction(bookRetreived))
+        );
 }
