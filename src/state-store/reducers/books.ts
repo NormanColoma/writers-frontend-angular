@@ -58,7 +58,8 @@ export function booksReducer(state = initialState, action: book.Actions): BookSt
             return Object.assign({}, state, { selectedBookId });
         }
 
-        case book.FIND_ONE_COMPLETE: {
+        case book.FIND_ONE_COMPLETE:
+        case book.EDIT_SUCCESS: {
             const book = action.payload;
 
             const currentIndex = state.entities
@@ -73,6 +74,12 @@ export function booksReducer(state = initialState, action: book.Actions): BookSt
                 loading: false,
                 selectedBookId: state.selectedBookId,
             };
+        }
+
+        case book.EDIT: {
+            const selectedBookId = action.payload.id;
+
+            return Object.assign({}, state, { selectedBookId });
         }
         
         default:  {
@@ -100,7 +107,4 @@ export const getLoading = createSelector(
 export const getBooksExtenal = (state: BookState) => state.entities;
 export const getLoadingExternal = (state: BookState) => state.loading;
 export const getSelectedBookIdExternal = (state: BookState) => state.selectedBookId;
-export const getSelectedBookExternal = (state: BookState) => {
-    debugger;
-    return state.entities.find(entity => entity.id === state.selectedBookId);
-}
+export const getSelectedBookExternal = (state: BookState) =>  state.entities.find(entity => entity.id === state.selectedBookId);

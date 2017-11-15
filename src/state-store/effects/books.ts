@@ -14,6 +14,8 @@ import 'rxjs/add/operator/mergeMap';
 //Services and Models
 import { BookService } from '../../dashboard/shared/services/books/books.service';
 import { Book } from '../../dashboard/shared/models/book';
+import { access } from 'fs';
+import { debounce } from 'rxjs/operator/debounce';
 
 type Props = { book: Book, id: string};
 
@@ -58,6 +60,16 @@ export class BookEffects {
         .switchMap(id => 
             this.bookService
                 .findBook(id)
-                .map((bookRetreived: Book) => new book.FindOneCompleteAction(bookRetreived))
+                .map((retreivedBook: Book) => new book.FindOneCompleteAction(retreivedBook))
         );
+    
+    @Effect()
+    edit$: Observable<book.EditActionSuccess> = this.actions$
+        .ofType(book.EDIT)
+        .map((action: book.EditAction) => action.payload)
+        .switchMap(values => 
+            this.bookService
+                .editBook(values.id, values.book)
+                .map((editedBook: Book) => new book.EditActionSuccess(editedBook))
+    )
 }

@@ -60,3 +60,8 @@ export const getBookEntitySelected = createSelector(
     getBookState,
     fromBooks.getSelectedBookExternal
 )
+
+export const getBookEntityIdSelected = createSelector(
+    getBookState,
+    fromBooks.getSelectedBookIdExternal
+)

@@ -81,15 +81,15 @@ import { Book } from '../../../shared/models/book';
                 [disabled]="form.invalid"
                 *ngIf="!book"
                 (click)="addBook()">
-                Add
+                Add book
             </button>
             <button 
                 type="button" 
                 class="btn btn-primary"
                 [disabled]="form.invalid"
                 *ngIf="book"
-                (click)="addBook()">
-                Add
+                (click)="editBook()">
+                Save changes
             </button>
         </form>
     </div>`
@@ -105,6 +105,9 @@ export class BookFormComponent implements OnChanges {
 
     @Output()
     add = new EventEmitter<Book>();
+    
+    @Output()
+    edit = new EventEmitter<Book>();
 
     form = this.fb.group({
         title: ['', Validators.required],
@@ -131,5 +134,9 @@ export class BookFormComponent implements OnChanges {
     
     addBook() {
         this.add.emit(this.form.value);
+    }
+
+    editBook() {
+        this.edit.emit(this.form.value);
     }
 }

@@ -35,4 +35,9 @@ export class BookService {
         return this.http.get(`${API.BOOKS}/${id}`)
             .map((response: Response) => response.json());
     }
+
+    editBook(id: string, book: Book) : Observable<Book> {
+        return this.http.put(`${API.BOOKS}/${id}`, book)
+            .map((response: Response) => response.json());
+    }
 }
