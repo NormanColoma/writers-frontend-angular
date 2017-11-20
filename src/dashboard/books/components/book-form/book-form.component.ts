@@ -4,6 +4,8 @@ import { FormGroup, FormControl, FormBuilder, Validators } from '@angular/forms'
 import { Author } from '../../../shared/models/author';
 import { Book } from '../../../shared/models/book';
 
+import { BookValidators } from './book-validators';
+
 @Component({
     selector: 'book-form',
     changeDetection: ChangeDetectionStrategy.OnPush,
@@ -62,7 +64,7 @@ import { Book } from '../../../shared/models/book';
             </div>
             <div 
                 class="form-group"
-                [class.has-danger]="required('coverUrl')">
+                [class.has-danger]="required('coverUrl') || invalidUrl">
                 <label for="coverUrl" class="form-control-label">Book's cover image</label>
                 <input 
                     type="text" 
@@ -73,6 +75,10 @@ import { Book } from '../../../shared/models/book';
                 <div 
                     class="form-control-feedback" 
                     *ngIf="required('coverUrl')">You must enter a cover link url
+                </div>
+                <div 
+                    class="form-control-feedback" 
+                    *ngIf="invalidUrl">You must enter a valid link url
                 </div>
             </div>
             <button 
@@ -113,7 +119,7 @@ export class BookFormComponent implements OnChanges {
         title: ['', Validators.required],
         description: ['', Validators.required],
         author_id: ['', Validators.required],
-        coverUrl: ['', Validators.required]
+        coverUrl: ['', [Validators.required, BookValidators.checkUrl]]
     });
 
     constructor(private fb: FormBuilder){}
@@ -138,5 +144,11 @@ export class BookFormComponent implements OnChanges {
 
     editBook() {
         this.edit.emit(this.form.value);
+    }
+
+    get invalidUrl() {
+        return this.form.get('coverUrl').hasError('invalidUrl') && 
+            !this.form.get('coverUrl').hasError('required') &&
+            this.form.get('coverUrl').touched;
     }
 }
