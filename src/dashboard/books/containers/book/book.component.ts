@@ -41,11 +41,13 @@ export class BookComponent implements OnDestroy {
             this.route.params,
             this.store.select(authorsReducer.getBooksEntities)
         )
-        .map(([params, books]) => { 
+        .do(([params]) => {
             if(params.id) {
                 this.bookId = params.id;
                 this.selectBookFromStore(params.id);
             } 
+        })
+        .map(([params, books]) => { 
             const authorId = params.id ? params.id : null;
             return { authorId, books };
          })
