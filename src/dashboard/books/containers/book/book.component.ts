@@ -5,7 +5,7 @@ import { Router, ActivatedRoute, Params } from '@angular/router';
 import { Author } from '../../../shared/models/author';
 import { Book } from '../../../shared/models/book';
 
-// Store relatives
+// Store relatives 
 import * as author from "../../../../state-store/actions/authors";
 import * as book from "../../../../state-store/actions/books";
 import * as booksReducer from "../../../../state-store/reducers/books";
@@ -40,14 +40,19 @@ export class BookComponent implements OnDestroy {
         this. subscription = Observable.zip(
             this.route.params,
             this.store.select(authorsReducer.getBooksEntities)
-        ).subscribe(([params, books]) => {
-            this.selectAuthorsFromStore();
+        )
+        .map(([params, books]) => { 
             if(params.id) {
                 this.bookId = params.id;
                 this.selectBookFromStore(params.id);
-                if(books.length === 0) {
-                    this.store.dispatch(new book.FindOneAction(params.id));
-                } 
+            } 
+            const authorId = params.id ? params.id : null;
+            return { authorId, books };
+         })
+        .subscribe(({authorId, books}) => {
+            this.selectAuthorsFromStore();
+            if(books.length === 0) {
+                this.store.dispatch(new book.FindOneAction(authorId));
             }
         });
     }

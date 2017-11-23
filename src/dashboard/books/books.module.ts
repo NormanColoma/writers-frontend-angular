@@ -11,6 +11,7 @@ import { BookComponent } from  './containers/book/book.component';
 import { BookListComponent } from './components/book-list/book-list.component';
 import { BookResumeComponent } from './components/book-resume/book-resume.component';
 import { BookFormComponent } from './components/book-form/book-form.component';
+import { BookDetailComponent } from './components/book-detail/book-detail.component';
 
 //Effects
 import { StoreModule } from '@ngrx/store';
@@ -23,7 +24,8 @@ import { reducers } from "../../state-store/reducers";
 const ROUTES: Routes = [
     { path: '', component:  BooksComponent },
     { path: 'new', component:  BookComponent },
-    { path: ':id', component:  BookComponent }
+    { path: ':id', component:  BookComponent },
+    { path: ':id/details', component: BookDetailComponent }
 ]
 
 @NgModule({
@@ -39,7 +41,8 @@ const ROUTES: Routes = [
         BookListComponent,
         BookResumeComponent,
         BookComponent,
-        BookFormComponent
+        BookFormComponent,
+        BookDetailComponent
     ]
 })
 
