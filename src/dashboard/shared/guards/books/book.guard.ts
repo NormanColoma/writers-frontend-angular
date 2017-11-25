@@ -11,6 +11,7 @@ import 'rxjs/add/operator/catch';
 import { of } from 'rxjs/observable/of';
 
 import * as book from "../../../../state-store/actions/books";
+import * as author from "../../../../state-store/actions/authors";
 import { AuthorState, getBookEntitySelected } from "../../../../state-store/reducers";
 
 import { Book } from '../../models/book';
@@ -26,6 +27,8 @@ export class BookGuard implements CanActivate {
       .do((bookFetched: Book) => {
         if (!bookFetched || bookFetched.id === "") {
           this.store.dispatch(new book.FindOneAction(bookId));
+        } else {
+          this.store.dispatch(new author.FindOne(bookFetched.author_id));
         }
       })
       .filter((it: any) => it)

@@ -83,7 +83,7 @@ import { BookValidators } from './book-validators';
             </div>
             <button 
                 type="button" 
-                class="btn btn-primary"
+                class="btn btn-primary btn-bordered"
                 [disabled]="form.invalid"
                 *ngIf="!book"
                 (click)="addBook()">
@@ -91,7 +91,7 @@ import { BookValidators } from './book-validators';
             </button>
             <button 
                 type="button" 
-                class="btn btn-primary"
+                class="btn btn-primary btn-bordered"
                 [disabled]="form.invalid"
                 *ngIf="book"
                 (click)="editBook()">

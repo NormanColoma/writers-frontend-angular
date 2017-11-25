@@ -57,7 +57,7 @@ export class BookEffects {
     findOne$: Observable<book.FindOneCompleteAction> = this.actions$
         .ofType(book.FIND_ONE)
         .map((action: book.FindOneAction) => action.payload)
-        .switchMap(id => 
+        .switchMap(id =>
             this.bookService
                 .findBook(id)
                 .map((retreivedBook: Book) => new book.FindOneCompleteAction(retreivedBook))

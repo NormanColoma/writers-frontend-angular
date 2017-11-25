@@ -17,11 +17,11 @@ import { Author } from '../../../shared/models/author';
                         </span>
                     </h4>
                     <p class="card-text">{{ author.about }}</p>
-                    <a href="#" class="btn btn-sm btn-primary" [routerLink]="viewBooksLink">View Books</a>
-                    <a href="#" class="btn btn-sm btn-primary" [routerLink]="updateLink">Update</a>
+                    <a href="#" class="btn btn-sm btn-primary btn-bordered" [routerLink]="viewBooksLink">View Books</a>
+                    <a href="#" class="btn btn-sm btn-primary btn-bordered" [routerLink]="updateLink">Update</a>
                     <button 
                         type="button" 
-                        class="btn btn-sm btn-primary"
+                        class="btn btn-sm btn-primary btn-bordered"
                         (click)="removeAuthor()">
                         Remove
                     </button>

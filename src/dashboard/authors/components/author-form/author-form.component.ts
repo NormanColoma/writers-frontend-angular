@@ -61,13 +61,13 @@ import { AuthorValidators } from './author.validators';
         </div>
         <button 
             type="button" 
-            class="btn btn-small btn-primary"
+            class="btn btn-small btn-primary btn-bordered"
             [disabled]="form.invalid"
             *ngIf="exists"
             (click)="updateAuthor()">Update</button>
         <button 
             type="button" 
-            class="btn btn-small btn-primary"
+            class="btn btn-small btn-primary btn-bordered"
             *ngIf="!exists"
             [disabled]="form.invalid"
             (click)="addAuthor()">Create</button>

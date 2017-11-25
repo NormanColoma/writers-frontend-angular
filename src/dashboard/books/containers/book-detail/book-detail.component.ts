@@ -8,20 +8,26 @@ import { Book } from '../../../shared/models/book';
 import { Observable } from 'rxjs';
 
 import * as authorsReducer from "../../../../state-store/reducers";
+import * as author from "../../../../state-store/actions/authors";
 import { Store } from "@ngrx/store";
 
 @Component({
     selector: 'book-detail',
     template: `<div>
         <book-detail-view
-            [book]="book$ | async">
+            [book]="book$ | async"
+            [author]="author$ | async">
         </book-detail-view>
     </div>`
 })
 
 export class BookDetailComponent{
-    book$: Observable<Book>;
-    constructor(private store: Store<authorsReducer.AuthorState>, private router: Router) {
+    private book$: Observable<Book>;
+    private author$: Observable<Author>;
+    
+    
+    constructor(private store: Store<authorsReducer.AuthorState>) {
         this.book$ = this.store.select(authorsReducer.getBookEntitySelected);
+        this.author$ = this.store.select(authorsReducer.getAuthorEntitySelected);
     }
 }

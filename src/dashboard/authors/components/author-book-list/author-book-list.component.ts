@@ -17,7 +17,7 @@ import { Book } from '../../../shared/models/book';
                         <hr>
                         <div>{{ book.description }}</div>
                         <div class="w-30 mt-4 d-flex justify-content-between">
-                            <a href="#" class="btn btn-primary float-right">Want to read</a>
+                            <a href="#" class="btn btn-outline-primary btn-bordered float-right">Want to read</a>
                         </div>
                     </div>
                     <img class="ml-3 mt-5 w-15 image-shadow" src="{{ book.coverUrl }}" alt="Generic placeholder image">
