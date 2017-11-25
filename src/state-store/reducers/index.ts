@@ -14,7 +14,6 @@ export const reducers = {
 };
 
 export const getAuthorState = createFeatureSelector<AuthorState>('authors');
-
 export const getBookState = createSelector(
     getAuthorState,
     (state: AuthorState) => state.books

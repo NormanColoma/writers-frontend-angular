@@ -102,7 +102,7 @@ export const getBooks = createSelector(
 export const getLoading = createSelector(
     getBookState,
     (state: BookState) => state.loading
-)
+);
 
 export const getBooksExtenal = (state: BookState) => state.entities;
 export const getLoadingExternal = (state: BookState) => state.loading;
