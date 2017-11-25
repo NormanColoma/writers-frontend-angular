@@ -5,8 +5,7 @@ import { SharedModule } from './shared/shared.module';
 
 const ROUTES: Routes = [
     { path: 'authors', loadChildren: './authors/authors.module#AuthorsModule' },
-    { path: 'books', loadChildren: './books/books.module#BooksModule' },
-    { path: 'bookings', loadChildren: './bookings/bookings.module#BookingsModule' }
+    { path: 'books', loadChildren: './books/books.module#BooksModule' }
 ]
 
 @NgModule({
