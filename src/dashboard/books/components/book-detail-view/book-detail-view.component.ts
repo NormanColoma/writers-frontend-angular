@@ -15,7 +15,7 @@ import { Author } from '../../../shared/models/author';
         </div>
         <div class="book-body mt-3">
             <img src="{{ book.coverUrl }}" class="rounded float-left w-17 mr-4">
-            <p> {{ book.description }}</p>
+            <p class="text-justify"> {{ book.description }}</p>
             <a class="btn btn-outline-primary btn-bordered" href="#">Want to read</a>
         </div>
     </div>`
