@@ -5,6 +5,10 @@ import { HttpModule } from '@angular/http';
 import { AuthorsService } from './services/authors/authors.service';
 import { BookService } from './services/books/books.service';
 
+//Tokens
+import { API_AUTHORS_TOKEN, API_BOOKS_TOKEN } from './tokens';
+import { API } from '../../endpoints';
+
 @NgModule({
     imports: [
         CommonModule,
@@ -19,7 +23,13 @@ export class SharedModule {
             ngModule: SharedModule,
             providers: [
                 AuthorsService,
-                BookService
+                BookService,
+                {
+                    provide: API_AUTHORS_TOKEN, useValue: API.WRITERS
+                },
+                {
+                    provide: API_BOOKS_TOKEN, useValue: API.BOOKS,
+                }
             ]
         }
     }

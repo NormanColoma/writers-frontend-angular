@@ -1,3 +1,4 @@
+import { Inject } from '@angular/core';
 import { AbstractControl } from '@angular/forms';
 
 export class AuthorValidators {
