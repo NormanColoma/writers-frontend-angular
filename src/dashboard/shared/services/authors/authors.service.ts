@@ -45,9 +45,6 @@ export class AuthorsService {
     existsAuthor(name: string) : Observable<boolean> {
         return this.http.get(`${this.api}/existing?name=${name}`)
         .map((response: Response) => response.json())
-        .map((response: any) => {
-            debugger;
-            return response.exists
-        });
+        .map((response: any) => response.exists);
     }
 }

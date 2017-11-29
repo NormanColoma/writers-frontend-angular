@@ -1,18 +1,23 @@
 import { Component, Input, Output, OnChanges, SimpleChanges, EventEmitter, ChangeDetectionStrategy } from '@angular/core';
-import { FormGroup, FormControl, FormBuilder, Validators} from '@angular/forms';
+import { FormGroup, FormControl, FormBuilder, Validators, AbstractControl} from '@angular/forms';
 
 //Models and Validators
 import { Author } from '../../../shared/models/author';
 import { AuthorValidators } from './author.validators';
+import { ExistsAuthorValidator } from './exists-author.validator';
+import { Observable } from 'rxjs/Observable';
 
 @Component({
     selector: 'author-form',
+    providers: [
+        ExistsAuthorValidator
+    ],
     changeDetection: ChangeDetectionStrategy.OnPush,
     template: `
     <form [formGroup]="form" class="mt-4">
         <div 
             class="form-group"
-            [class.has-danger]="required('name')">
+            [class.has-danger]="required('name') || nameAlreadyTaken">
             <label for="name" class="form-control-label">Name</label>
             <input 
                 type="text" 
@@ -23,6 +28,10 @@ import { AuthorValidators } from './author.validators';
             <div 
                 class="form-control-feedback" 
                 *ngIf="required('name')">You must enter a name
+            </div>
+            <div 
+                class="form-control-feedback" 
+                *ngIf="nameAlreadyTaken">Author already exists
             </div>
         </div>
         <div class="form-group" [class.has-danger]="required('about')">
@@ -90,16 +99,28 @@ export class AuthorFormComponent implements OnChanges {
     
     
     form = this.fb.group({
-        name: ['', Validators.required],
+        name: ['', Validators.required, this.existsAuthors.bind(this)],
         about: ['', Validators.required],
         books: [0, [Validators.required, AuthorValidators.checkNumberOfBooks]]
     })
 
-    constructor(private fb: FormBuilder) {}
+    constructor(private fb: FormBuilder, private existsAuthorValidator:ExistsAuthorValidator) {}
 
     get invalid() {
         return this.form.get('books').hasError('invalidNumberOfBooks') && 
         this.form.get('books').touched;
+    }
+
+    get nameAlreadyTaken() {
+        return this.form.get('name').hasError('existsAuthors') && 
+        this.form.get('name').touched;
+    }
+
+    existsAuthors(control: AbstractControl) {
+        const currentAuthorName = this.author ? this.author.name : null;
+        return this.existsAuthorValidator
+            .chechIfAuthorExists(control.value, currentAuthorName)
+            .map((response: any) => response);
     }
 
     required(name: string) {
