@@ -14,10 +14,6 @@ import 'rxjs/add/operator/mergeMap';
 //Services and Models
 import { BookService } from '../../dashboard/shared/services/books/books.service';
 import { Book } from '../../dashboard/shared/models/book';
-import { access } from 'fs';
-import { debounce } from 'rxjs/operator/debounce';
-
-type Props = { book: Book, id: string};
 
 @Injectable() 
 export class BookEffects {
@@ -31,6 +27,7 @@ export class BookEffects {
     get$: Observable<book.GetCompleteAction> = this.actions$
         .ofType(book.GET)
         .switchMap(() => this.bookService.getBooks())
+        .do((books: Book[]) => books.forEach(book => book.updated = new Date(book.updated)))
         .map((books: Book[]) => new book.GetCompleteAction(books));
 
     @Effect()

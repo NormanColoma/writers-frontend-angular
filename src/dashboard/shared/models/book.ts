@@ -3,5 +3,6 @@ export interface Book {
     title: string,
     description: string,
     coverUrl: string,
-    author_id: string
+    author_id: string,
+    updated: Date
 }

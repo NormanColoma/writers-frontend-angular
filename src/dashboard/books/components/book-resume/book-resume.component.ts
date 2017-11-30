@@ -14,7 +14,7 @@ import { Book } from '../../../shared/models/book';
             <div class="card-block w-75">
                 <h4 class="card-title">{{ book.title }}</h4>
                 <p class="card-text">{{ book.description }}</p>
-                <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
+                <p class="card-text"><small class="text-muted">Last updated {{ book.updated | date: 'MMM d, y, h:mm:ss a' }}</small></p>
                 <a [routerLink]="book.id" class="btn btn-outline-primary btn-bordered float-right ml-2">Edit info</a>
                 <a [routerLink]="linkToDetails" class="btn btn-outline-primary btn-bordered float-right">View more</a>
             </div>

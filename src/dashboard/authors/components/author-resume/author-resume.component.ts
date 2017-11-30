@@ -9,7 +9,7 @@ import { Author } from '../../../shared/models/author';
                 <div class="card-block">
                     <h4 
                         class="card-title">
-                        {{ author.name }} 
+                        {{ author.name }}
                         <span
                             *ngIf="isNew" 
                             class="badge badge-pill badge-info">
