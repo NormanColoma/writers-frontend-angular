@@ -126,7 +126,11 @@ export class BookFormComponent implements OnChanges {
 
     ngOnChanges(changes: SimpleChanges) {
         if(this.book) {
-            const value = this.book;
+            const value = Object.assign({}, this.book);
+
+            if (this.authors.findIndex(author => author.id === this.book.author_id) === -1) {
+                value.author_id = "";
+            }
             this.form.patchValue(value);
         }
     }
