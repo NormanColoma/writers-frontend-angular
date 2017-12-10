@@ -35,8 +35,6 @@ export function authorsReducer(state = initialState, action: author.Actions): St
                     [author.id]: author
                 }
             }, { ...state.entities });
-
-            debugger;
             
             return Object.assign({}, state, {
                 entities,
@@ -75,7 +73,7 @@ export function authorsReducer(state = initialState, action: author.Actions): St
             }
 
             return Object.assign({}, state, { 
-                entities: {...state.entities, newAuthor}, ids: [ ...state.ids, newAuthor.id] 
+                entities: {...state.entities, [newAuthor.id]: newAuthor}, ids: [ ...state.ids, newAuthor.id] 
             });
         }
 
@@ -92,17 +90,25 @@ export function authorsReducer(state = initialState, action: author.Actions): St
             };
         }
 
-        /*case author.REMOVE_SUCCESS: {
+        case author.REMOVE_SUCCESS: {
             const authorId = action.payload;
 
-            const newEntities = state.entities.filter(author => author.id !== authorId); 
+            const newEntities = Object.keys(state.entities)
+                .filter(id => id !== authorId)
+                .reduce((entities: { [id: string] : Author}, id) => {
+                    entities[id] = state.entities[id];
+                    return entities;
+                }, {});
+            debugger;
             const newIds = state.ids.filter(id => id !== authorId);
+
+            debugger;
 
             return Object.assign({}, state, {
                 entities: newEntities,
                 ids: newIds
             });
-        }*/
+        }
 
         default: {
             return state;
