@@ -99,11 +99,7 @@ export function authorsReducer(state = initialState, action: author.Actions): St
                     entities[id] = state.entities[id];
                     return entities;
                 }, {});
-            debugger;
             const newIds = state.ids.filter(id => id !== authorId);
-
-            debugger;
-
             return Object.assign({}, state, {
                 entities: newEntities,
                 ids: newIds
