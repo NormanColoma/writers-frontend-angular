@@ -24,6 +24,13 @@ export const getAuthorsEntities = createSelector(
     fromAuthors.getAuthors
 );
 
+export const getAuthors = createSelector(
+    getAuthorsEntities,
+    (entities) => {
+        return Object.keys(entities).map(id => entities[id]);
+    }
+);
+
 export const getAuthorsLoading = createSelector(
     getAuthorState,
     fromAuthors.getLoading

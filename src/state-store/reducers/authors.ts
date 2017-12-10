@@ -5,14 +5,14 @@ import { Author } from '../../dashboard/shared/models/author';
 
 export interface State {
     ids: string[];
-    entities: Author [],
+    entities: { [id: string] : Author },
     loading: boolean,
     selectedAuthorId: string | null
 };
 
 export const initialState: State = {
      ids: [],
-     entities: [],
+     entities: {},
      loading: false,
      selectedAuthorId: null
 }
@@ -29,9 +29,17 @@ export function authorsReducer(state = initialState, action: author.Actions): St
             
             const newIds = newAuthors.map(author => author.id);
             
+            const entities = newAuthors.reduce ((entities: { [id: string] : Author}, author) => {
+                return {
+                    ...entities,
+                    [author.id]: author
+                }
+            }, { ...state.entities });
+
+            debugger;
             
             return Object.assign({}, state, {
-                entities: [...state.entities, ...newAuthors],
+                entities,
                 ids: [...state.ids, ...newIds],
                 loading: false
             });
@@ -48,14 +56,11 @@ export function authorsReducer(state = initialState, action: author.Actions): St
             if (!author.name || state.ids.indexOf(author.id) > -1) {
                 return state;
             }
-
-            const currentIndex = state.entities
-                .findIndex(entity => entity.id === author.id);
-            const index = currentIndex >= 0 ? currentIndex : 0;
+            
             return {
                 ids: [...state.ids, author.id],
                 entities: Object.assign([], state.entities, {
-                    [index]: author,
+                    [author.id]: author,
                 }),
                 loading: false,
                 selectedAuthorId: state.selectedAuthorId,
@@ -70,26 +75,24 @@ export function authorsReducer(state = initialState, action: author.Actions): St
             }
 
             return Object.assign({}, state, { 
-                entities: [...state.entities, newAuthor], ids: [ ...state.ids, newAuthor.id] 
+                entities: {...state.entities, newAuthor}, ids: [ ...state.ids, newAuthor.id] 
             });
         }
 
         case author.UPDATE_SUCCESS: {
             const updatedAuthor = action.payload;
-            const index = state.entities
-                .findIndex(entity => entity.id === updatedAuthor.id);
 
             return {
                 ids: state.ids,
                 entities: Object.assign([], state.entities, {
-                    [index]: updatedAuthor
+                    [updatedAuthor.id]: updatedAuthor
                 }),
                 loading: state.loading,
                 selectedAuthorId: state.selectedAuthorId
             };
         }
 
-        case author.REMOVE_SUCCESS: {
+        /*case author.REMOVE_SUCCESS: {
             const authorId = action.payload;
 
             const newEntities = state.entities.filter(author => author.id !== authorId); 
@@ -99,7 +102,7 @@ export function authorsReducer(state = initialState, action: author.Actions): St
                 entities: newEntities,
                 ids: newIds
             });
-        }
+        }*/
 
         default: {
             return state;
@@ -137,6 +140,6 @@ export const getSelectedAuthor = createSelector(
                 created_at: new Date()
             };
         }
-        return authors.find(author => author.id === id);
+        return authors[id];
     }
 );

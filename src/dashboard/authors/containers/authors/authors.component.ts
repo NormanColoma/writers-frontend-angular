@@ -33,7 +33,7 @@ export class AuthorsComponent implements OnInit {
     
     ngOnInit() {
         this.loading$ = this.store.select(authorReducer.getAuthorsLoading);
-        this.authors$ = this.store.select(authorReducer.getAuthorsEntities);
+        this.authors$ = this.store.select(authorReducer.getAuthors);
     }
 
     remove(id: string) {
