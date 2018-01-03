@@ -37,7 +37,7 @@ const ROUTES: Routes = [
         CommonModule,
         ReactiveFormsModule,
         RouterModule.forChild(ROUTES),
-        StoreModule.forFeature('authors', reducers),
+        StoreModule.forFeature('collection', reducers),
         EffectsModule.forFeature([BookEffects, AuthorEffects])
     ],
     declarations: [ 

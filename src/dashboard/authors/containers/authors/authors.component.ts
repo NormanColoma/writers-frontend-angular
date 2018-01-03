@@ -27,7 +27,7 @@ export class AuthorsComponent implements OnInit {
     authors$: Observable<Author[]>;
     loading$: Observable<boolean>;
 
-    constructor(private store: Store<authorReducer.AuthorState>){
+    constructor(private store: Store<authorReducer.CollectionState>){
         this.store.dispatch(new author.GetAction);
     }
     

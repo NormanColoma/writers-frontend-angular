@@ -33,7 +33,7 @@ export class AuthorBooksComponent{
     loading$: Observable<boolean>;
     subscription: Subscription;
 
-    constructor(private store: Store<authorReducer.AuthorState>, private route: ActivatedRoute){
+    constructor(private store: Store<authorReducer.CollectionState>, private route: ActivatedRoute){
         this.author$ = this.store.select(authorReducer.getAuthorEntitySelected);
         this.books$ = this.store.select(authorReducer.getAuthorBooks);
         this.loading$ = this.store.select(authorReducer.getAuthorBooksLoading);

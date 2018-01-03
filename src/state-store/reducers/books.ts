@@ -5,14 +5,14 @@ import { Book } from '../../dashboard/shared/models/book';
 
 export interface BookState {
     ids: string[];
-    entities: Book[],
+    entities: { [id: string] : Book },
     loading: boolean,
     selectedBookId: string | null
 }
 
 export const initialState: BookState = {
     ids: [],
-    entities: [],
+    entities: {},
     loading: false,
     selectedBookId: null
 }
@@ -29,11 +29,16 @@ export function booksReducer(state = initialState, action: book.Actions): BookSt
         case book.GET_BY_AUTHOR_COMPLETE: {
             const books = action.payload;
             const newBooks = books.filter(book => !state.ids.includes(book.id));
-            
             const newIds = newBooks.map(book => book.id);
-            
+            const entities = newBooks.reduce ((entities: { [id: string] : Book}, book) => {
+                return {
+                    ...entities,
+                    [book.id]: book
+                }
+            }, { ...state.entities });
+
             return Object.assign({}, state, {
-                entities: [...state.entities, ...newBooks],
+                entities,
                 ids: [...state.ids, ...newIds],
                 loading: false
             });
@@ -47,7 +52,7 @@ export function booksReducer(state = initialState, action: book.Actions): BookSt
             }
             
             return Object.assign({}, state, { 
-                entities: [...state.entities, newBook], ids: [ ...state.ids, newBook.id] 
+                entities: {...state.entities, [newBook.id]: newBook}, ids: [ ...state.ids, newBook.id] 
             });
         }
 
@@ -62,14 +67,10 @@ export function booksReducer(state = initialState, action: book.Actions): BookSt
         case book.EDIT_SUCCESS: {
             const book = action.payload;
 
-            const currentIndex = state.entities
-                .findIndex(entity => entity.id === book.id);
-            const index = currentIndex >= 0 ? currentIndex : 0;
-            
             return {
                 ids: [...state.ids, book.id],
                 entities: Object.assign([], state.entities, {
-                    [index]: book,
+                    [book.id]: book
                 }),
                 loading: false,
                 selectedBookId: state.selectedBookId,
@@ -89,22 +90,7 @@ export function booksReducer(state = initialState, action: book.Actions): BookSt
     }
 }
 
-//This is only will be used when attaching feature to 'books' within module
-export const getBookState = createFeatureSelector<BookState>('books');
-
-export const getBooks = createSelector(
-    getBookState,
-    (state: BookState) => { 
-        return state.entities
-    }
-);
-
-export const getLoading = createSelector(
-    getBookState,
-    (state: BookState) => state.loading
-);
-
-export const getBooksExtenal = (state: BookState) => state.entities;
-export const getLoadingExternal = (state: BookState) => state.loading;
-export const getSelectedBookIdExternal = (state: BookState) => state.selectedBookId;
-export const getSelectedBookExternal = (state: BookState) =>  state.entities.find(entity => entity.id === state.selectedBookId);
+export const getBooks = (state: BookState) => state.entities;
+export const getLoading = (state: BookState) => state.loading;
+export const getSelectedBookId = (state: BookState) => state.selectedBookId;
+export const getSelectedBook = (state: BookState) =>  state.entities[state.selectedBookId];

@@ -3,7 +3,7 @@ import * as fromAuthors from './authors';
 import * as fromBooks from './books';
 import { BookState } from './books';
 
-export interface AuthorState {
+export interface CollectionState {
     authors: fromAuthors.State,
     books: fromBooks.BookState
 }
@@ -13,10 +13,14 @@ export const reducers = {
     books: fromBooks.booksReducer,
 };
 
-export const getAuthorState = createFeatureSelector<AuthorState>('authors');
+export const getCollectionState = createFeatureSelector<CollectionState>('collection');
+export const getAuthorState = createSelector(
+    getCollectionState,
+    (state: CollectionState) => state.authors
+)
 export const getBookState = createSelector(
-    getAuthorState,
-    (state: AuthorState) => state.books
+    getCollectionState,
+    (state: CollectionState) => state.books
 )
 
 export const getAuthorsEntities = createSelector(
@@ -26,48 +30,51 @@ export const getAuthorsEntities = createSelector(
 
 export const getAuthors = createSelector(
     getAuthorsEntities,
-    (entities) => {
-        return Object.keys(entities).map(id => entities[id]);
-    }
+    (entities) => Object.keys(entities).map(id => entities[id])
 );
 
 export const getAuthorsLoading = createSelector(
     getAuthorState,
     fromAuthors.getLoading
-)
+);
 
 export const getAuthorEntitySelected = createSelector(
     getAuthorState,
     fromAuthors.getSelectedAuthor
-)
+);
 
 export const getAuthorEntityIdSelected = createSelector(
     getAuthorState,
     fromAuthors.getSelectedAuthorId
-)
+);
 
 export const getBooksEntities = createSelector(
     getBookState,
-    fromBooks.getBooksExtenal
-)
+    fromBooks.getBooks
+);
+
+export const getBooks = createSelector(
+    getBooksEntities,
+    (entities) => Object.keys(entities).map(id => entities[id])
+);
 
 export const getAuthorBooks = createSelector(
     getAuthorEntityIdSelected,
     getBooksEntities,
-    (authorId, books) => books.filter(book => book.author_id === authorId)
-)
+    (authorId, books) => Object.keys(books).map(key => books[key]).filter(book => book.author_id === authorId)
+);
 
 export const getAuthorBooksLoading = createSelector(
     getBookState,
-    fromBooks.getLoadingExternal
-)
+    fromBooks.getLoading
+);
 
 export const getBookEntitySelected = createSelector(
     getBookState,
-    fromBooks.getSelectedBookExternal
-)
+    fromBooks.getSelectedBook
+);
 
 export const getBookEntityIdSelected = createSelector(
     getBookState,
-    fromBooks.getSelectedBookIdExternal
-)
+    fromBooks.getSelectedBookId
+);

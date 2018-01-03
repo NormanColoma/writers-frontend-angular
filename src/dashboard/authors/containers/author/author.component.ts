@@ -10,7 +10,6 @@ import { Store } from "@ngrx/store";
 import { Observable, Subscription } from 'rxjs';
 
 //Services and Models
-import { AuthorsService } from "../../../shared/services/authors/authors.service";
 import { Author } from '../../../shared/models/author';
 
 @Component({
@@ -36,8 +35,7 @@ export class AuthorComponent implements OnInit, OnDestroy {
     subscription: Subscription;
 
     constructor(
-        private store: Store<authorsReducer.AuthorState>, 
-        private authorsService: AuthorsService,
+        private store: Store<authorsReducer.CollectionState>, 
         private router: Router,
         private route: ActivatedRoute
     ){}

@@ -11,7 +11,8 @@ import 'rxjs/add/operator/catch';
 import { of } from 'rxjs/observable/of';
 
 import * as author from "../../../../state-store/actions/authors";
-import { State, getAuthors } from "../../../../state-store/reducers/authors";
+import { State } from "../../../../state-store/reducers/authors";
+import { getAuthors } from "../../../../state-store/reducers"
 
 import { Author } from '../../models/author';
 

@@ -112,36 +112,18 @@ export function authorsReducer(state = initialState, action: author.Actions): St
     }
 }
 
-export const getAuthorsState = createFeatureSelector<State>('authors');
-
-export const getAuthors = createSelector(
-    getAuthorsState,
-    (state: State) => state.entities
-);
-
-export const getLoading = createSelector(
-    getAuthorsState,
-    (state: State) =>  state.loading
-)
-
-export const getSelectedAuthorId = createSelector(
-    getAuthorsState,
-    (state: State) => state.selectedAuthorId
-)
-
-export const getSelectedAuthor = createSelector(
-    getAuthors,
-    getSelectedAuthorId,
-    (authors, id) => {
-        if(!id) {
-            return {
-                id: '',
-                name: '',
-                about: '',
-                books: 0,
-                created_at: new Date()
-            };
-        }
-        return authors[id];
-    }
-);
+export const getAuthors = (state: State) => state.entities;
+export const getLoading = (state: State) =>  state.loading;
+export const getSelectedAuthorId = (state: State) => state.selectedAuthorId;
+export const getSelectedAuthor = (state: State) => {
+    const { selectedAuthorId, entities } = state;
+    const emptyAuthor = {
+        id: '',
+        name: '',
+        about: '',
+        books: 0,
+        created_at: new Date()
+    };
+    return !selectedAuthorId ? emptyAuthor : entities[selectedAuthorId];
+}
+        

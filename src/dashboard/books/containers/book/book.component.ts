@@ -9,7 +9,7 @@ import { Book } from '../../../shared/models/book';
 import * as author from "../../../../state-store/actions/authors";
 import * as book from "../../../../state-store/actions/books";
 import * as booksReducer from "../../../../state-store/reducers/books";
-import * as authorsReducer from "../../../../state-store/reducers";
+import * as fromStore from "../../../../state-store/reducers";
 import { Store } from "@ngrx/store";
 
 import { Observable, Subscription } from 'rxjs';
@@ -36,10 +36,10 @@ export class BookComponent implements OnDestroy {
     bookId: string;
 
 
-    constructor(private store: Store<authorsReducer.AuthorState>, private router: Router, private route: ActivatedRoute){
+    constructor(private store: Store<fromStore.CollectionState>, private router: Router, private route: ActivatedRoute){
         this. subscription = Observable.zip(
             this.route.params,
-            this.store.select(authorsReducer.getBooksEntities)
+            this.store.select(fromStore.getBooks)
         )
         .do(([params]) => {
             if(params.id) {
@@ -75,11 +75,11 @@ export class BookComponent implements OnDestroy {
 
     private selectAuthorsFromStore() {
         this.store.dispatch(new author.GetAction());
-        this.authors$ = this.store.select(authorsReducer.getAuthorsEntities);
+        this.authors$ = this.store.select(fromStore.getAuthors);
     }
 
     private selectBookFromStore(bookId: string) {
-        this.book$ = this.store.select(authorsReducer.getBookEntitySelected);
+        this.book$ = this.store.select(fromStore.getBookEntitySelected);
         this.store.dispatch(new book.SelectOneAction(bookId));
     }
 }

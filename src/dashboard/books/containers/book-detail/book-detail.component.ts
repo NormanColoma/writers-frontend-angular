@@ -7,7 +7,7 @@ import { Book } from '../../../shared/models/book';
 
 import { Observable } from 'rxjs';
 
-import * as authorsReducer from "../../../../state-store/reducers";
+import * as fromStore from "../../../../state-store/reducers";
 import * as author from "../../../../state-store/actions/authors";
 import { Store } from "@ngrx/store";
 
@@ -26,8 +26,8 @@ export class BookDetailComponent{
     private author$: Observable<Author>;
     
     
-    constructor(private store: Store<authorsReducer.AuthorState>) {
-        this.book$ = this.store.select(authorsReducer.getBookEntitySelected);
-        this.author$ = this.store.select(authorsReducer.getAuthorEntitySelected);
+    constructor(private store: Store<fromStore.CollectionState>) {
+        this.book$ = this.store.select(fromStore.getBookEntitySelected);
+        this.author$ = this.store.select(fromStore.getAuthorEntitySelected);
     }
 }

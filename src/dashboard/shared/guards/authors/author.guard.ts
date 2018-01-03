@@ -21,7 +21,7 @@ import { Author } from '../../models/author';
 export class AuthorBooksGuard implements CanActivate {
   constructor(private store: Store<State>) {}
 
-  getFromStoreOrAPI(authorId: string): Observable<Author[]> {
+  getFromStoreOrAPI(authorId: string): Observable<Author> {
     return this.store
       .select(getSelectedAuthor)
       .do((authorFetched: Author) => {

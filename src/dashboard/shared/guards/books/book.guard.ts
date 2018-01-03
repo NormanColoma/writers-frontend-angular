@@ -12,14 +12,14 @@ import { of } from 'rxjs/observable/of';
 
 import * as book from "../../../../state-store/actions/books";
 import * as author from "../../../../state-store/actions/authors";
-import { AuthorState, getBookEntitySelected } from "../../../../state-store/reducers";
+import { CollectionState, getBookEntitySelected } from "../../../../state-store/reducers";
 
 import { Book } from '../../models/book';
 
 
 @Injectable()
 export class BookGuard implements CanActivate {
-  constructor(private store: Store<AuthorState>) {}
+  constructor(private store: Store<CollectionState>) {}
 
   getFromStoreOrAPI(bookId: string): Observable<Book> {
     return this.store
