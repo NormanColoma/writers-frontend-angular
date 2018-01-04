@@ -8,7 +8,8 @@ import { BookService } from '../../../shared/services/books/books.service';
 //ngrx
 import { Store } from '@ngrx/store';
 import * as book from "../../../../state-store/actions/books";
-import * as fromStore from "../../../../state-store/reducers"; 
+import * as fromStore from "../../../../state-store/reducers";
+import * as selectors from "../../../../state-store/selectors";
 
 @Component({
     selector: 'books',
@@ -32,7 +33,7 @@ export class BooksComponent {
     }
 
     ngOnInit() {
-        this.books$ = this.store.select(fromStore.getBooks);
-        this.loading$ = this.store.select(fromStore.getAuthorBooksLoading);
+        this.books$ = this.store.select(selectors.getBooks);
+        this.loading$ = this.store.select(selectors.getAuthorBooksLoading);
     }
 }

@@ -3,21 +3,21 @@ import * as author from '../actions/authors';
 
 import { Author } from '../../dashboard/shared/models/author';
 
-export interface State {
+export interface AuthorState {
     ids: string[];
     entities: { [id: string] : Author },
     loading: boolean,
     selectedAuthorId: string | null
 };
 
-export const initialState: State = {
+export const initialState: AuthorState = {
      ids: [],
      entities: {},
      loading: false,
      selectedAuthorId: null
 }
 
-export function authorsReducer(state = initialState, action: author.Actions): State {
+export function authorsReducer(state = initialState, action: author.Actions): AuthorState {
     switch(action.type) {
         case author.GET: {
             return Object.assign({}, state, { loading: true });
@@ -112,10 +112,10 @@ export function authorsReducer(state = initialState, action: author.Actions): St
     }
 }
 
-export const getAuthors = (state: State) => state.entities;
-export const getLoading = (state: State) =>  state.loading;
-export const getSelectedAuthorId = (state: State) => state.selectedAuthorId;
-export const getSelectedAuthor = (state: State) => {
+export const getAuthors = (state: AuthorState) => state.entities;
+export const getLoading = (state: AuthorState) =>  state.loading;
+export const getSelectedAuthorId = (state: AuthorState) => state.selectedAuthorId;
+export const getSelectedAuthor = (state: AuthorState) => {
     const { selectedAuthorId, entities } = state;
     const emptyAuthor = {
         id: '',

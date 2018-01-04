@@ -12,7 +12,8 @@ import { of } from 'rxjs/observable/of';
 
 import * as book from "../../../../state-store/actions/books";
 import * as author from "../../../../state-store/actions/authors";
-import { CollectionState, getBookEntitySelected } from "../../../../state-store/reducers";
+import { CollectionState } from "../../../../state-store/reducers";
+import { getBookEntitySelected } from "../../../../state-store/selectors";
 
 import { Book } from '../../models/book';
 

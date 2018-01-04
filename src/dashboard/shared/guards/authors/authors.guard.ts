@@ -11,15 +11,15 @@ import 'rxjs/add/operator/catch';
 import { of } from 'rxjs/observable/of';
 
 import * as author from "../../../../state-store/actions/authors";
-import { State } from "../../../../state-store/reducers/authors";
-import { getAuthors } from "../../../../state-store/reducers"
+import { AuthorState } from "../../../../state-store/reducers/authors";
+import { getAuthors } from "../../../../state-store/selectors"
 
 import { Author } from '../../models/author';
 
 
 @Injectable()
 export class AuthorsGuard implements CanActivate {
-  constructor(private store: Store<State>) {}
+  constructor(private store: Store<AuthorState>) {}
 
   getFromStoreOrAPI(): Observable<Author[]> {
     return this.store

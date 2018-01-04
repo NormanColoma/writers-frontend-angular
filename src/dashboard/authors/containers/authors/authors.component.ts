@@ -2,7 +2,8 @@ import { Component, OnInit } from '@angular/core';
 
 // Store relatives
 import * as author from "../../../../state-store/actions/authors";
-import * as authorReducer from "../../../../state-store/reducers";
+import * as fromStore from "../../../../state-store/reducers";
+import * as selectors from "../../../../state-store/selectors";
 import { Store } from "@ngrx/store";
 
 //Observables and operators
@@ -27,13 +28,13 @@ export class AuthorsComponent implements OnInit {
     authors$: Observable<Author[]>;
     loading$: Observable<boolean>;
 
-    constructor(private store: Store<authorReducer.CollectionState>){
+    constructor(private store: Store<fromStore.CollectionState>){
         this.store.dispatch(new author.GetAction);
     }
     
     ngOnInit() {
-        this.loading$ = this.store.select(authorReducer.getAuthorsLoading);
-        this.authors$ = this.store.select(authorReducer.getAuthors);
+        this.loading$ = this.store.select(selectors.getAuthorsLoading);
+        this.authors$ = this.store.select(selectors.getAuthors);
     }
 
     remove(id: string) {

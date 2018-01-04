@@ -3,7 +3,8 @@ import { Router, ActivatedRoute } from '@angular/router';
 
 // Store relatives
 import * as author from "../../../../state-store/actions/authors";
-import * as authorsReducer from "../../../../state-store/reducers";
+import * as fromStore from "../../../../state-store/reducers";
+import * as selectors from "../../../../state-store/selectors";
 import { Store } from "@ngrx/store";
 
 //Observables and operators
@@ -35,14 +36,14 @@ export class AuthorComponent implements OnInit, OnDestroy {
     subscription: Subscription;
 
     constructor(
-        private store: Store<authorsReducer.CollectionState>, 
+        private store: Store<fromStore.CollectionState>, 
         private router: Router,
         private route: ActivatedRoute
     ){}
 
     ngOnInit() {
         this.subscription = this.route.params.subscribe(params => this.id = params.id);
-        this.author$ = this.store.select(authorsReducer.getAuthorEntitySelected);
+        this.author$ = this.store.select(selectors.getAuthorEntitySelected);
         this.store.dispatch(new author.FindOne(this.id));        
     }
 
